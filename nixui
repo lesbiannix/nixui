@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+set -e
+
+COMMAND=$1
+shift || true
+
+case "$COMMAND" in
+  init)
+    APP_NAME=$1
+    if [ -z "$APP_NAME" ]; then
+      echo "Usage: nixui init <app-name>"
+      exit 1
+    fi
+    echo "Scaffolding new NixUI app: $APP_NAME"
+    cp -r examples/todo-app "$APP_NAME"
+    cp flake.nix "$APP_NAME/flake.nix"
+    echo "Done. See $APP_NAME/"
+    ;;
+  dev)
+    echo "Starting NixUI dev shell (use nix develop)..."
+    nix develop
+    ;;
+  build)
+    echo "Building NixUI app (nix build .#nixui)..."
+    nix build .#nixui
+    ;;
+  check)
+    echo "Type checking components (placeholder)..."
+    # Placeholder: in future, run a real type checker
+    nix eval --impure --expr 'import ./tests/button.nix'
+    nix eval --impure --expr 'import ./tests/state.nix'
+    echo "All checks passed."
+    ;;
+  *)
+    echo "NixUI CLI"
+    echo "Usage: nixui <command>"
+    echo "Commands:"
+    echo "  init <app-name>   Scaffold new app"
+    echo "  dev               Start dev shell"
+    echo "  build             Build app"
+    echo "  check             Type check (placeholder)"
+    ;;
+esac
