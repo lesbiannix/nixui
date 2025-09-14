@@ -8,7 +8,7 @@ Declarative frontend framework for Nix — pure Nix components, built-in Tailwin
 # Scaffold a new app
 ./nixui init my-app
 
-# Enter dev shell
+# Start dev server with hot reload
 ./nixui dev
 
 # Build example app (generates HTML and Tailwind CSS)

@@ -17,8 +17,8 @@ case "$COMMAND" in
     echo "Done. See $APP_NAME/"
     ;;
   dev)
-    echo "Starting NixUI dev shell (use nix develop)..."
-    nix develop
+    echo "Starting NixUI dev server (with hot reload)..."
+    nix develop --command node dev-server.js
     ;;
   build)
     echo "Building NixUI app (nix build .#nixui)..."
